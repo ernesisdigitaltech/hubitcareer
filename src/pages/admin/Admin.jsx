@@ -6,7 +6,7 @@ import {
   LayoutDashboard, BookOpen, HelpCircle,
   Users, ClipboardList, Gift, Award,
   Briefcase, FolderOpen, Settings, Sparkles,
-  LogOut, Menu, X, Home
+  LogOut, Menu, X, Home, CalendarCheck
 } from 'lucide-react'
 import AdminOverview from './tabs/AdminOverview'
 import SkillsManager from './tabs/SkillsManager'
@@ -19,16 +19,18 @@ import ExpertApplications from './tabs/ExpertApplications'
 import FileManager from './tabs/FileManager'
 import SiteContent from './tabs/SiteContent'
 import BulkOnboarding from './tabs/BulkOnboarding'
+import BookingsManager from './tabs/BookingsManager'
 
 const tabs = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
-  { id: 'bulk', label: 'AI Bulk Onboarding', icon: Sparkles }, // <-- Placed right at the top!
+  { id: 'bulk', label: 'AI Bulk Onboarding', icon: Sparkles },
   { id: 'skills', label: 'Skills Manager', icon: BookOpen },
   { id: 'questions', label: 'Question Bank', icon: HelpCircle },
   { id: 'users', label: 'Users Manager', icon: Users },
   { id: 'records', label: 'Quiz Records', icon: ClipboardList },
   { id: 'rewards', label: 'Reward Requests', icon: Gift },
   { id: 'certificates', label: 'Certificates', icon: Award },
+  { id: 'bookings', label: 'Bookings Manager', icon: CalendarCheck },
   { id: 'applications', label: 'Expert Applications', icon: Briefcase },
   { id: 'files', label: 'File Manager', icon: FolderOpen },
   { id: 'content', label: 'Site Content', icon: Settings },
@@ -48,13 +50,14 @@ export default function Admin() {
   const renderTab = () => {
     switch (activeTab) {
       case 'overview': return <AdminOverview />
+      case 'bulk': return <BulkOnboarding />
       case 'skills': return <SkillsManager />
       case 'questions': return <QuestionBank />
-      case 'bulk': return <BulkOnboarding />
       case 'users': return <UsersManager />
       case 'records': return <QuizRecords />
       case 'rewards': return <RewardManager />
       case 'certificates': return <CertificateManager />
+      case 'bookings': return <BookingsManager />
       case 'applications': return <ExpertApplications />
       case 'files': return <FileManager />
       case 'content': return <SiteContent />

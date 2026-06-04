@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, BookOpen, ClipboardList,
   Gift, Award, Briefcase, User, LogOut,
-  Menu, X, ShieldAlert
+  Menu, X, ShieldAlert, CalendarCheck
 } from 'lucide-react'
 
 // User tabs
@@ -15,6 +15,7 @@ import MyRecords from './tabs/MyRecords'
 import RewardRequests from './tabs/RewardRequests'
 import MyCertifications from './tabs/MyCertifications'
 import MyApplications from './tabs/MyApplications'
+import MyBookings from './tabs/MyBookings'
 import Profile from './tabs/Profile'
 
 // Admin tabs
@@ -28,6 +29,7 @@ import CertificateManager from '../admin/tabs/CertificateManager'
 import ExpertApplications from '../admin/tabs/ExpertApplications'
 import FileManager from '../admin/tabs/FileManager'
 import SiteContent from '../admin/tabs/SiteContent'
+import BookingsManager from '../admin/tabs/BookingsManager'
 
 const userTabs = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
@@ -36,6 +38,7 @@ const userTabs = [
   { id: 'rewards', label: 'Reward Requests', icon: Gift },
   { id: 'certifications', label: 'My Certifications', icon: Award },
   { id: 'applications', label: 'My Applications', icon: Briefcase },
+  { id: 'bookings', label: 'My Bookings', icon: CalendarCheck },
   { id: 'profile', label: 'Profile', icon: User },
 ]
 
@@ -47,6 +50,7 @@ const adminTabs = [
   { id: 'admin_records', label: 'Quiz Records', icon: ClipboardList },
   { id: 'admin_rewards', label: 'Reward Requests', icon: Gift },
   { id: 'admin_certificates', label: 'Certificates', icon: Award },
+  { id: 'admin_bookings', label: 'Bookings Manager', icon: CalendarCheck },
   { id: 'admin_applications', label: 'Expert Applications', icon: Briefcase },
   { id: 'admin_files', label: 'File Manager', icon: ShieldAlert },
   { id: 'admin_content', label: 'Site Content', icon: ShieldAlert },
@@ -85,6 +89,7 @@ export default function Dashboard() {
       case 'rewards': return <RewardRequests />
       case 'certifications': return <MyCertifications />
       case 'applications': return <MyApplications />
+      case 'bookings': return <MyBookings />
       case 'profile': return <Profile />
       // Admin tabs
       case 'admin_overview': return <AdminOverview />
@@ -94,6 +99,7 @@ export default function Dashboard() {
       case 'admin_records': return <QuizRecords />
       case 'admin_rewards': return <RewardManager />
       case 'admin_certificates': return <CertificateManager />
+      case 'admin_bookings': return <BookingsManager />
       case 'admin_applications': return <ExpertApplications />
       case 'admin_files': return <FileManager />
       case 'admin_content': return <SiteContent />
