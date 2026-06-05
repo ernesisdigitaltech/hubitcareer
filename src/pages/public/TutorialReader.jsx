@@ -301,22 +301,38 @@ export default function TutorialReader() {
         {/* Rich HTML content */}
         {page.content && (
           <div
-            className="prose prose-invert prose-slate max-w-none
-              prose-headings:text-white prose-headings:font-bold
-              prose-p:text-slate-300 prose-p:leading-relaxed
-              prose-li:text-slate-300
-              prose-strong:text-white
-              prose-a:text-blue-400 prose-a:no-underline 
-              hover:prose-a:underline
-              prose-code:text-blue-300 prose-code:bg-slate-800 
-              prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-              prose-pre:bg-slate-800 prose-pre:border prose-pre:border-slate-700
-              prose-blockquote:border-blue-500 
-              prose-blockquote:text-slate-400
-              prose-table:text-slate-300
-              prose-th:text-white prose-th:bg-slate-800
-              prose-td:border-slate-700
-              prose-img:rounded-xl"
+            className="
+              [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mt-8 [&_h2]:mb-3
+              [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-white [&_h3]:mt-6 [&_h3]:mb-2
+              [&_h4]:text-lg [&_h4]:font-semibold [&_h4]:text-white [&_h4]:mt-4 [&_h4]:mb-2
+              [&_p]:text-slate-300 [&_p]:leading-relaxed [&_p]:mb-4
+              [&_ul]:mb-4 [&_ul]:mt-2 [&_ul]:space-y-2
+              [&_ul]:list-disc [&_ul]:pl-6
+              [&_ol]:mb-4 [&_ol]:mt-2 [&_ol]:space-y-2
+              [&_ol]:list-decimal [&_ol]:pl-6
+              [&_li]:text-slate-300 [&_li]:leading-relaxed [&_li]:pl-1
+              [&_li::marker]:text-blue-400
+              [&_strong]:text-white [&_strong]:font-semibold
+              [&_em]:italic [&_em]:text-slate-300
+              [&_a]:text-blue-400 [&_a]:underline [&_a]:underline-offset-2
+              [&_blockquote]:border-l-4 [&_blockquote]:border-blue-500
+              [&_blockquote]:pl-4 [&_blockquote]:italic
+              [&_blockquote]:text-slate-400 [&_blockquote]:my-4
+              [&_code]:text-blue-300 [&_code]:bg-slate-800
+              [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm
+              [&_pre]:bg-slate-800 [&_pre]:border [&_pre]:border-slate-700
+              [&_pre]:rounded-xl [&_pre]:p-4 [&_pre]:my-4 [&_pre]:overflow-x-auto
+              [&_pre_code]:bg-transparent [&_pre_code]:p-0
+              [&_img]:rounded-xl [&_img]:max-w-full [&_img]:my-4
+              [&_table]:w-full [&_table]:my-4 [&_table]:border-collapse
+              [&_th]:text-white [&_th]:bg-slate-800 [&_th]:px-4
+              [&_th]:py-2 [&_th]:border [&_th]:border-slate-700 [&_th]:text-left
+              [&_td]:text-slate-300 [&_td]:px-4
+              [&_td]:py-2 [&_td]:border [&_td]:border-slate-700
+              [&_hr]:border-slate-700 [&_hr]:my-6
+              [&_mark]:bg-yellow-400/30 [&_mark]:text-yellow-200
+              [&_mark]:px-1 [&_mark]:rounded
+            "
             dangerouslySetInnerHTML={{ __html: page.content }}
           />
         )}
