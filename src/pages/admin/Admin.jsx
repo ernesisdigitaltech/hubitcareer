@@ -5,11 +5,13 @@ import { useNavigate, Link } from 'react-router-dom'
 import {
   LayoutDashboard, BookOpen, HelpCircle,
   Users, ClipboardList, Gift, Award,
-  Briefcase, FolderOpen, Settings, Sparkles,
-  LogOut, Menu, X, Home, CalendarCheck
+  Briefcase, FolderOpen, Settings,
+  LogOut, Menu, X, Home, CalendarCheck,
+  FileText,
 } from 'lucide-react'
 import AdminOverview from './tabs/AdminOverview'
 import SkillsManager from './tabs/SkillsManager'
+import SkillPagesManager from './tabs/SkillPagesManager'
 import QuestionBank from './tabs/QuestionBank'
 import UsersManager from './tabs/UsersManager'
 import QuizRecords from './tabs/QuizRecords'
@@ -18,13 +20,12 @@ import CertificateManager from './tabs/CertificateManager'
 import ExpertApplications from './tabs/ExpertApplications'
 import FileManager from './tabs/FileManager'
 import SiteContent from './tabs/SiteContent'
-import BulkOnboarding from './tabs/BulkOnboarding'
 import BookingsManager from './tabs/BookingsManager'
 
 const tabs = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
-  { id: 'bulk', label: 'AI Bulk Onboarding', icon: Sparkles },
   { id: 'skills', label: 'Skills Manager', icon: BookOpen },
+  { id: 'pages', label: 'Tutorial Pages', icon: FileText },
   { id: 'questions', label: 'Question Bank', icon: HelpCircle },
   { id: 'users', label: 'Users Manager', icon: Users },
   { id: 'records', label: 'Quiz Records', icon: ClipboardList },
@@ -50,8 +51,8 @@ export default function Admin() {
   const renderTab = () => {
     switch (activeTab) {
       case 'overview': return <AdminOverview />
-      case 'bulk': return <BulkOnboarding />
       case 'skills': return <SkillsManager />
+      case 'pages': return <SkillPagesManager />
       case 'questions': return <QuestionBank />
       case 'users': return <UsersManager />
       case 'records': return <QuizRecords />
@@ -76,24 +77,31 @@ export default function Admin() {
         />
       )}
 
-      {/* Sidebar */}
+      {/* ── SIDEBAR ── */}
       <aside
         className={`
-          fixed top-0 left-0 h-full w-64 bg-[#060B1F] border-r border-white/10
-          flex flex-col transition-transform duration-300 z-30
+          fixed top-0 left-0 h-full w-64 bg-[#060B1F]
+          border-r border-white/10 flex flex-col
+          transition-transform duration-300 z-30
           lg:relative lg:translate-x-0 lg:z-auto
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
         {/* Logo */}
-        <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
+        <div className="px-6 py-5 border-b border-white/10
+          flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold text-white">Hubitcareer</h1>
-            <p className="text-xs text-red-400 font-medium">Admin Panel</p>
+            <h1 className="text-lg font-bold text-white">
+              Hubitcareer
+            </h1>
+            <p className="text-xs text-red-400 font-medium">
+              Admin Panel
+            </p>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-white/50 hover:text-white"
+            className="lg:hidden text-white/50 hover:text-white
+              transition-colors"
           >
             <X size={20} />
           </button>
@@ -102,32 +110,100 @@ export default function Admin() {
         {/* Admin info */}
         <div className="px-6 py-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 font-bold text-sm">
+            <div className="w-9 h-9 rounded-full bg-red-500/20
+              border border-red-500/30 flex items-center
+              justify-center text-red-400 font-bold text-sm
+              flex-shrink-0">
               {userData?.fullName?.charAt(0).toUpperCase() || 'A'}
             </div>
-            <div>
-              <p className="text-white text-sm font-medium truncate max-w-[140px]">
+            <div className="min-w-0">
+              <p className="text-white text-sm font-medium
+                truncate max-w-[140px]">
                 {userData?.fullName || 'Admin User'}
               </p>
-              <p className="text-red-400 text-xs font-medium">Administrator</p>
+              <p className="text-red-400 text-xs font-medium">
+                Administrator
+              </p>
             </div>
           </div>
         </div>
 
         {/* Nav tabs */}
-        <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-          {tabs.map(({ id, label, icon: Icon }) => (
+        <nav className="flex-1 px-3 py-4 space-y-0.5
+          overflow-y-auto scrollbar-thin scrollbar-track-transparent
+          scrollbar-thumb-white/10">
+
+          {/* Content section label */}
+          <p className="px-4 pt-1 pb-2 text-[10px] font-bold
+            text-white/25 uppercase tracking-widest">
+            Content
+          </p>
+          {tabs.slice(0, 4).map(({ id, label, icon: Icon }) => (
             <button
               key={id}
-              onClick={() => { setActiveTab(id); setSidebarOpen(false) }}
+              onClick={() => {
+                setActiveTab(id)
+                setSidebarOpen(false)
+              }}
               className={`
-                w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition
+                w-full flex items-center gap-3 px-4 py-2.5
+                rounded-xl text-sm font-medium transition-all
                 ${activeTab === id
-                  ? 'bg-[#2979FF] text-white'
+                  ? 'bg-[#2979FF] text-white shadow-lg shadow-blue-500/20'
                   : 'text-white/50 hover:text-white hover:bg-white/5'}
               `}
             >
-              <Icon size={16} />
+              <Icon size={16} className="flex-shrink-0" />
+              {label}
+            </button>
+          ))}
+
+          {/* Management section label */}
+          <p className="px-4 pt-4 pb-2 text-[10px] font-bold
+            text-white/25 uppercase tracking-widest">
+            Management
+          </p>
+          {tabs.slice(4, 9).map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => {
+                setActiveTab(id)
+                setSidebarOpen(false)
+              }}
+              className={`
+                w-full flex items-center gap-3 px-4 py-2.5
+                rounded-xl text-sm font-medium transition-all
+                ${activeTab === id
+                  ? 'bg-[#2979FF] text-white shadow-lg shadow-blue-500/20'
+                  : 'text-white/50 hover:text-white hover:bg-white/5'}
+              `}
+            >
+              <Icon size={16} className="flex-shrink-0" />
+              {label}
+            </button>
+          ))}
+
+          {/* System section label */}
+          <p className="px-4 pt-4 pb-2 text-[10px] font-bold
+            text-white/25 uppercase tracking-widest">
+            System
+          </p>
+          {tabs.slice(9).map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => {
+                setActiveTab(id)
+                setSidebarOpen(false)
+              }}
+              className={`
+                w-full flex items-center gap-3 px-4 py-2.5
+                rounded-xl text-sm font-medium transition-all
+                ${activeTab === id
+                  ? 'bg-[#2979FF] text-white shadow-lg shadow-blue-500/20'
+                  : 'text-white/50 hover:text-white hover:bg-white/5'}
+              `}
+            >
+              <Icon size={16} className="flex-shrink-0" />
               {label}
             </button>
           ))}
@@ -137,14 +213,18 @@ export default function Admin() {
         <div className="px-3 py-4 border-t border-white/10 space-y-1">
           <Link
             to="/"
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/50 hover:text-white hover:bg-white/5 transition"
+            className="w-full flex items-center gap-3 px-4 py-2.5
+              rounded-xl text-sm font-medium text-white/50
+              hover:text-white hover:bg-white/5 transition-all"
           >
             <Home size={16} />
             View Site
           </Link>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/50 hover:text-red-400 hover:bg-red-500/10 transition"
+            className="w-full flex items-center gap-3 px-4 py-2.5
+              rounded-xl text-sm font-medium text-white/50
+              hover:text-red-400 hover:bg-red-500/10 transition-all"
           >
             <LogOut size={16} />
             Sign Out
@@ -152,22 +232,42 @@ export default function Admin() {
         </div>
       </aside>
 
-      {/* Main content */}
+      {/* ── MAIN CONTENT ── */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+
         {/* Top bar */}
-        <header className="sticky top-0 z-10 bg-[#0A0F2C]/80 backdrop-blur border-b border-white/10 px-6 py-4 flex items-center gap-4">
+        <header className="sticky top-0 z-10 bg-[#0A0F2C]/90
+          backdrop-blur border-b border-white/10 px-6 py-4
+          flex items-center gap-4">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden text-white/50 hover:text-white"
+            className="lg:hidden text-white/50 hover:text-white
+              transition-colors"
           >
             <Menu size={22} />
           </button>
-          <h2 className="text-white font-semibold">
-            {tabs.find(t => t.id === activeTab)?.label}
-          </h2>
-          <span className="ml-auto bg-red-500/10 border border-red-500/20 text-red-400 text-xs px-3 py-1 rounded-full font-medium">
-            Admin
-          </span>
+
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2">
+            <span className="text-white/30 text-sm hidden sm:block">
+              Admin
+            </span>
+            <span className="text-white/30 text-sm hidden sm:block">
+              /
+            </span>
+            <h2 className="text-white font-semibold text-sm">
+              {tabs.find(t => t.id === activeTab)?.label}
+            </h2>
+          </div>
+
+          {/* Right side */}
+          <div className="ml-auto flex items-center gap-3">
+            <span className="bg-red-500/10 border border-red-500/20
+              text-red-400 text-xs px-3 py-1 rounded-full
+              font-medium">
+              Admin
+            </span>
+          </div>
         </header>
 
         {/* Tab content */}

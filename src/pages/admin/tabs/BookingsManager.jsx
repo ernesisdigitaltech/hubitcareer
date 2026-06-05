@@ -21,19 +21,24 @@ export default function BookingsManager() {
   };
 
   const fetchBookings = async () => {
-    setLoading(true);
-    try {
-      const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
-      const snap = await getDocs(q);
-      const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      setBookings(list);
-      setFiltered(list);
-    } catch (e) {
+  setLoading(true);
+  try {
+    const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
+    const snap = await getDocs(q);
+    const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    setBookings(list);
+    setFiltered(list);
+  } catch (e) {
+    console.error("Bookings fetch error:", e);
+    if (e.code === "failed-precondition") {
+      showToast("Index still building — try again in 2 minutes", "error");
+    } else {
       showToast("Failed to load bookings", "error");
-    } finally {
-      setLoading(false);
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => { fetchBookings(); }, []);
 
